@@ -1,4 +1,4 @@
-name: CI
+name: CI-2204
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ jobs:
   ruby-ci:
     strategy:
       matrix:
-        runs-on: [ubuntu-latest]
+        runs-on: [ubicloud, ubuntu-latest]
     name: CI ${{matrix.runs-on}}
     runs-on: ${{matrix.runs-on}}
     continue-on-error: true
@@ -18,6 +18,9 @@ jobs:
 
       - name: uname -mr
         run: uname -mr
+
+      - name: Sleep for 60 seconds
+        run: sleep 30
 
       - name: lsb_release -a
         run: lsb_release -a
