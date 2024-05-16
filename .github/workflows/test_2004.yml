@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ruby-ci:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest]
+    name: CI ${{matrix.runs-on}}
+    runs-on: ${{matrix.runs-on}}
+    continue-on-error: true
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: uname -mr
+        run: uname -mr
+
+      - name: lsb_release -a
+        run: lsb_release -a
+
+      - name: printenv
+        run: printenv
+
+      - name: pwd
+        run: pwd
+
+      - name: id-runner
+        run: id -a runner
+
+      - name: id-runneradmin
+        run: id -a runneradmin
+
+      - name: ls .
+        run: ls -lah .
+
+      - name: ls -lah
+        run: ls -lah
+
+      - name: ls -lah /home/runner
+        run: ls -lah /home/runner
+
+      - name: ls -lah /home/runner/runners || true
+        run: ls -lah /home/runner/runners || true
+
+      - name: ls -lah /home/runner/runners/2.312.0 || true
+        run: ls -lah /home/runner/runners/2.312.0 || true
+
+      - name: ls -lah /home/runner/actions-runner || true
+        run: ls -lah /home/runner/actions-runner || true
+
+      - name: sudo -l
+        run: sudo -l
+
+      - name: sudo ls -lah /etc/sudoers.d
+        run: sudo ls -lah /etc/sudoers.d
+
+      - name: sudo cat /etc/sudoers.d/runner || true
+        run: sudo cat /etc/sudoers.d/runner || true
+
+      - name: docker run -d -v "$(pwd)":/workspace --name alpine alpine tail -f /dev/null
+        run: docker run -d -v "$(pwd)":/workspace --name alpine alpine tail -f /dev/null
+
+      - name: docker exec alpine ls -lah
+        run: docker exec alpine ls -lah
+
+      - name: docker exec alpine ls -lah /workspace
+        run: docker exec alpine ls -lah /workspace
+
+      - name: docker exec alpine touch /workspace/test.txt
+        run: docker exec alpine touch /workspace/test.txt
+
+      - name: docker exec alpine ls -lah /workspace
+        run: docker exec alpine ls -lah /workspace
+
+      - name: cat /etc/group
+        run: cat /etc/group
+
+      - name: groups runner
+        run: groups runner
+
+      - name: cat /proc/meminfo
+        run: cat /proc/meminfo
+
+      - name: swapon -s
+        run: swapon -s
+
+      - name: free -h
+        run: free -h
+
+      - name: swapon --all --verbose
+        run: swapon --all --verbose
+
+      - name: cat /proc/swaps
+        run: cat /proc/swaps
