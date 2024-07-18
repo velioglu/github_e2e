@@ -7,7 +7,7 @@ jobs:
   ruby-ci:
     strategy:
       matrix:
-        runs-on: [ubicloud, ubuntu-latest]
+        runs-on: [ubuntu-latest]
     name: CI ${{matrix.runs-on}}
     runs-on: ${{matrix.runs-on}}
     continue-on-error: true
@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: echo_ach
+        run: echo $ACTIONS_CACHE_URL
 
       - name: uname -mr
         run: uname -mr
